@@ -4,6 +4,7 @@ import javafx.stage.Stage;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.ImageCursor;
 import javafx.scene.text.Text;
 import javafx.geometry.Pos;
@@ -20,7 +21,6 @@ import javafx.scene.control.DialogPane;
 import javafx.scene.media.AudioClip;
 import javafx.scene.input.MouseEvent;
 import javafx.event.EventHandler;
-//import java.util.Random;
 import java.text.*;
 import java.lang.*;
 
@@ -30,28 +30,34 @@ public class FakeBlock extends Application {
 	private Image mallet;
 	private AudioClip sound1;
 	private AudioClip sound2;
-	//private Random rand;
+	private ImageView view;
+	
 	
 	public void start(Stage stage){
 		stage.setTitle("FakeBlock");
 		stage.getIcons().add(new Image("file:icon.png"));
 		
-		BorderPane pane = new BorderPane();
+		mallet = new Image("mallet.png");
+		ImageCursor cursor = new ImageCursor(mallet);
+		
+		
+		sound1 = new AudioClip("file:sound1.wav");
+		sound2 = new AudioClip("file:sound2.wav");
+		
+		view = new ImageView();
+		view.setImage(mallet);
+		
+		BorderPane pane = new BorderPane(); //add view as param to show ImageView
+		
 		
 		Scene scene = new Scene(pane, 500, 600);
+		scene.setCursor(cursor);
 		
 		BackgroundImage bg = new BackgroundImage(new Image("file:bg.png", 1000, 1000, false, true), 
 			BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
 		
 		pane.setBackground(new Background(bg));
 		
-		mallet = new Image("mallet.png");
-		ImageCursor cursor = new ImageCursor(mallet);
-		scene.setCursor(cursor);
-		cursor.getBestSize(577, 355);
-		
-		sound1 = new AudioClip("file:sound1.wav");
-		sound2 = new AudioClip("file:sound2.wav");
 		
 		
 		
@@ -66,6 +72,23 @@ public class FakeBlock extends Application {
             }
         });
 		
+		pane.setOnMouseEntered(new EventHandler<MouseEvent>()
+        {
+            @Override
+            public void handle(MouseEvent me) {
+				view.setX(100);
+				view.setY(100);
+            }
+        });
+		
+		pane.setOnMouseMoved(new EventHandler<MouseEvent>()
+        {
+            @Override
+            public void handle(MouseEvent me) {
+				view.setX(100);
+				view.setY(50);
+            }
+        });
 		stage.setScene(scene);
 		stage.show();
 		
