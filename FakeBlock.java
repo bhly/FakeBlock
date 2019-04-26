@@ -20,7 +20,7 @@ import javafx.scene.control.DialogPane;
 import javafx.scene.media.AudioClip;
 import javafx.scene.input.MouseEvent;
 import javafx.event.EventHandler;
-import java.util.Random;
+//import java.util.Random;
 import java.text.*;
 import java.lang.*;
 
@@ -30,7 +30,7 @@ public class FakeBlock extends Application {
 	private Image mallet;
 	private AudioClip sound1;
 	private AudioClip sound2;
-	private Random rand;
+	//private Random rand;
 	
 	public void start(Stage stage){
 		stage.setTitle("FakeBlock");
@@ -53,11 +53,16 @@ public class FakeBlock extends Application {
 		sound1 = new AudioClip("file:sound1.wav");
 		sound2 = new AudioClip("file:sound2.wav");
 		
+		
+		
 		 pane.setOnMouseClicked(new EventHandler<MouseEvent>()
         {
             @Override
             public void handle(MouseEvent me) {
-                sound1.play();
+				if(Math.random() < 0.5)
+					sound1.play();
+				else
+					sound2.play();
             }
         });
 		
